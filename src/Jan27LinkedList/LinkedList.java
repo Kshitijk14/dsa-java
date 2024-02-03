@@ -192,13 +192,95 @@ public class LinkedList {
     }
 
     // get kth node from end
-    public void getKthNode() {
+    public Node getKthNode(int k) {
         
+        Node slow = head;
+        Node fast = head;
+
+        for (int i = 0; i < k; i++) {
+            slow = slow.next;
+        }
+        while (slow != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+
+        return fast;
+
     }
 
     // remove kth node from end
     public void removeKthNode() {
 
+    }
+
+    // reverse a LinkedList using pointers exchange
+    public Node reverse(Node node) {
+
+        if (node == null) {
+            return null;
+        }
+        
+        Node prev = null;
+        Node curr = node;
+
+        while (curr != null) {
+            Node fwd = curr.next;
+            curr.next = prev;
+
+            prev = curr;
+            curr = fwd;
+        }
+
+        return prev;
+    }
+
+    // check if the Linked list is palindrome
+    public boolean isPalindrome() {
+        
+        
+        return false;
+    }
+
+    // add 2 number in a Linked list
+    public Node add2Num(Node l1, Node l2) { 
+
+        if (l1 == null) {
+            return l2;
+        }
+        if (l2 == null) {
+            return l1;
+        }
+
+        Node dummyNode = new Node();
+        dummyNode.data = -1;
+        Node itr = dummyNode;
+        Node c1 = l1;
+        Node c2 = l2;
+        int carry = 0;
+
+        while (c1 != null || c2 != null || carry != 0) { // condition
+            // sum ?
+            int sum = carry + (c1 != null ? c1.data:0) + (c2 != null ? c2.data:0);
+            // res ?
+            int res = sum % 10;
+            // carry ?
+            carry = sum / 10;
+            // new node ?
+            Node newNode = new Node();
+            newNode.data = res;
+            itr.next = newNode;
+            itr = newNode;
+            
+            if (c1 != null) {
+                c1 = c1.next;
+            }
+            if (c2 != null) {
+                c2 = c2.next;
+            }
+        }
+
+        return dummyNode.next;
     }
 
     public void display() {
@@ -250,6 +332,14 @@ public class LinkedList {
         l1.addLast(80);
         l1.display();
         System.out.println("Even2: " + l1.getMidNode2());
+
+        System.out.println("***********************************************************");
+        System.out.println(l1.getKthNode(3));
+
+        System.out.println("***********************************************************");
+        l1.head = l1.reverse(l1.head);
+        System.out.println("The reversed LL: ");
+        l1.display();
     }
 
 }
