@@ -178,7 +178,7 @@ public class LinkedList {
         
     }
 
-    public int getMidNode2() { // when size isn't available
+    public Node getMidNode2() { // when size isn't available
 
         Node slow = head;
         Node fast = head; 
@@ -188,25 +188,15 @@ public class LinkedList {
             fast = fast.next.next;
         }
 
-        return slow.data;
+        return slow;
     }
 
     // get kth node from end
     public Node getKthNode(int k) {
         
-        Node slow = head;
-        Node fast = head;
-
-        for (int i = 0; i < k; i++) {
-            slow = slow.next;
-        }
-        while (slow != null) {
-            slow = slow.next;
-            fast = fast.next;
-        }
-
-        return fast;
-
+        
+        
+        return head;
     }
 
     // remove kth node from end
@@ -238,8 +228,33 @@ public class LinkedList {
     // check if the Linked list is palindrome
     public boolean isPalindrome() {
         
+        if (head == null || head.next == null) {
+            return true;
+        }
         
-        return false;
+        Node middle = getMidNode2();
+        
+        Node secondHalf = reverse(middle.next);
+        
+        Node firstHalf = head;
+
+        while (secondHalf != null) {
+
+            if (firstHalf.data != secondHalf.data) {
+                return false;
+            }
+
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
+        }
+        
+        return true;
+    }
+
+    public boolean isPalindrom2() {
+        return true;
+
+        
     }
 
     // add 2 number in a Linked list
@@ -334,12 +349,16 @@ public class LinkedList {
         System.out.println("Even2: " + l1.getMidNode2());
 
         System.out.println("***********************************************************");
-        System.out.println(l1.getKthNode(3));
+        // System.out.println(l1.getKthNode(3));
 
         System.out.println("***********************************************************");
         l1.head = l1.reverse(l1.head);
         System.out.println("The reversed LL: ");
         l1.display();
+
+        System.out.println("***********************************************************");
+        l1.display();
+        System.out.println(l1.isPalindrome());
     }
 
 }
